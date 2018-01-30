@@ -1,0 +1,21 @@
+
+BASH Scripting
+copy file from server - check it's newer - copy over old one - remove first line
+
+
+KPI Function list
+
+Open csv
+
+Parse data to array
+
+Define guages
+
+Build Gauges
+
+Loop to update guages
+
+Refresh array every 10 min
+
+
+

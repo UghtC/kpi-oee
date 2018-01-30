@@ -1,0 +1,79 @@
+/*
+HTML 5 Template Name: Basic 3
+File: Layout CSS
+Author: OS Templates
+Author URI: http://www.os-templates.com/
+Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
+*/
+
+body{margin:0; padding:0; font-size:13px; font-family:"Arial Black", Arial, Gadget, sans-serif; background-color: rgb(250, 180, 60);overflow:hidden;}
+
+.clear:after{content:"."; display:block; height:0; clear:both; visibility:hidden; line-height:0;}
+.clear{display:block; width:100%; clear:both;}
+html[xmlns] .clear{display:block;}
+* html .clear{height:1%;}
+
+a{outline:none; text-decoration:none;}
+
+.fl_left{float:left;}
+.fl_right{float:right;}
+
+/*----------------------------------------------HTML 5 Overrides-------------------------------------*/
+
+address, article, aside, figcaption, figure, footer, header, hgroup, nav, section{display:block; margin:0; padding:0;}
+
+/*----------------------------------------------Wrapper-------------------------------------*/
+
+div.wrapper{display:block; margin:0 auto; width:1280px; text-align:left;}
+
+.row1{color:#c0bab6;}
+.row2{color:#111;}
+.row3, .row3 a{color:#ffffff;}
+
+/*----------------------------------------------Generalise-------------------------------------*/
+
+#header, #container, #footer{display:block; width:1280px;}
+
+h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:24px; font-weight:normal; font-style:normal; line-height:normal;}
+
+.one_quarter, .two_quarter, .three_quarter, .four_quarter{display:block; float:left; margin:0 20px 0 0;}
+.one_quarter{width:100px;}
+.two_quarter{width:470px;}
+.three_quarter{width:500px;}
+.four_quarter{width:960px; float:none; margin-right:0; clear:both;}
+
+.one_third, .two_third, .three_third{display:block; float:left; margin:0 30px 0 0;}
+.one_third{width:300px;}
+.two_third{width:630px;}
+.three_third{width:960px; float:none; margin-right:0; clear:both;}
+
+.lastbox{margin-right:0;}
+
+/*----------------------------------------------Header-------------------------------------*/
+
+#header{text-align: center;}
+#lineNoDisplay{font-size: 90px; width: auto; text-align: center;}
+/*----------------------------------------------Content Container-------------------------------------*/
+
+#container{}
+
+/*--Content--*/
+
+#container #col1{display:block; float:left; width:255px; padding: 30px 0px 0px 50px;}
+
+#container #col2{display:block; float:left; width:680x;}
+
+#container #col3{display:block; float:left; width:335px; padding-top: 40px;}
+
+#gauge-oee{margin-left: 60px; margin-right: 70px;}
+
+#col3 p{margin:0; padding:0; font-weight:normal; font-style:normal; line-height:normal;}
+
+#displayLostTime{margin-left: 70px; font-size: 40px;}
+#displayRejects{margin-left: 70px; font-size: 40px;}
+#ampmUpdate{margin-left: 10px; font-size: 50px; line-height: 100%;}
+
+
+/*----------------------------------------------Footer-------------------------------------*/
+
+#footer{}

@@ -1,0 +1,31 @@
+<?php
+$row = 1;
+if (($handle = fopen("Chilled_PrePack_AM.csv", "r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $num = count($data);
+        echo "<p> $num fields in line $row: <br /></p>\n";
+        $row++;
+        for ($c=0; $c < $num; $c++) {
+            echo $data[$c] . "<br />\n";
+        }
+    }
+    fclose($handle);
+}
+?>
+
+<?php
+$file = fopen("Chilled_PrePack_AM.csv","r");
+print_r(fgetcsv($file));
+fclose($file);
+?>
+
+<?php
+$file = fopen("Chilled_PrePack_AM.csv","r");
+
+while(! feof($file))
+  {
+  print_r(fgetcsv($file));
+  }
+
+fclose($file);
+?>

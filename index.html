@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+	<title>KPI Gauges</title>
+<meta charset="iso-8859-1">
+
+<link rel="stylesheet" href="styles/layout.css" type="text/css">
+<!--[if lt IE 9]><script src="scripts/html5shiv.js"></script><![endif]-->
+
+<script src="papaparse.min.js"></script>
+<script src="gauge.min.js"></script>
+
+</head>
+<body>
+<div class="wrapper row1">
+	<header id="header" class="clear">
+
+	</header>
+</div>
+<!-- ################################ -->
+<div class="wrapper row2">
+	<div id="container" class="clear">
+		<div id="col1">
+			<canvas id="gauge-quality"></canvas>
+			<canvas id="gauge-performance"></canvas>
+			<canvas id="gauge-availability"></canvas>
+		</div>
+		<div id="col2">
+			<div>
+			<div id="lineNoDisplay">LINE 0</div>
+			<canvas id="gauge-oee" width="500" height="500"></canvas>
+			</div>
+			<div id="ampmUpdate" class="one_quarter">&nbsp;AM<br/>Shift</div>
+			<div class="three_quarter lastbox">
+				<div id="displayLostTime">Lost Time: 0%</div>
+				<div id="displayRejects">Rejects: 0%</div>
+			</div>
+		</div>
+		<div id="col3">
+			<canvas id="displayLinesOverview" width="335" height="690"></canvas>
+			<p class="fl_right">Last Updated: <span id="lastMod"></span></p>
+		</div>
+
+<script>
+//  Global Variable(s)
+	var lineNumber = 1;
+	var pageRefresher = 0;
+	var waitPeriod = 10000;
+
+	const lineRed = 'rgba(255, 7, 23, 0.95)';
+	const lineOrange = 'rgba(250, 180, 60, 0.85)';
+	const lineGreen = 'rgba(11, 152, 11, 0.85)';
+
+
+function doStuff(data) {
+
+//  Set Variables for Gauges
+
+var gaugeOEE = new RadialGauge({
+	renderTo: 'gauge-oee',
+	title: "OEE",
+	width: 500,
+	height: 500,
+	minValue: 0,
+	maxValue: 100,
+	exactTicks: true,
+//	majorTicks: ['0%','50%','70%','100%'],
+	majorTicks: [0, 50, 70, 100],
+	minorTicks: 5,
+	ticksAngle: 250,
+	startAngle: 55,
+	strokeTicks: true,
+	highlights  : [
+		{ from : 0,  to : 50, color : 'rgba(225, 7, 23, 0.75)' },
+		{ from : 50,  to : 70, color : 'rgba(225, 165, 0, 0.75)' },
+		{ from : 70, to : 100, color : 'rgba(11, 152, 11, 0.85)' }
+	],
+	highlightsWidth: 15,
+	valueInt: 1,
+	valueDec: 0,
+	colorPlate: "#fff",
+	colorMajorTicks: "#222222",
+	colorMinorTicks: "#555555",
+	colorTitle: "#000",
+	colorUnits: "#000",
+	colorNumbers: "#333333",
+	valueBox: true,
+	colorValueText: "#000",
+	valueBoxStroke: 0,
+	colorValueBoxBackground: "#fff",
+	colorValueBoxShadow: false,
+	colorValueTextShadow: false,
+	colorNeedleShadowUp: false,
+	colorNeedleShadowDown: false,
+	colorNeedle: "rgba(200, 50, 50, .75)",
+	colorNeedleEnd: "rgba(200, 50, 50, .75)",
+	borderShadowWidth: 1,
+	borders: false,
+	needleWidth: 8,
+	needleCircleOuter: false,
+	needleCircleInner: false,
+	animationDuration: 1000,
+	animationRule: "elastic",
+	fontNumbers: "Verdana",
+	fontTitle: "Verdana",
+	fontValue: "Verdana",
+	fontUnits: "Verdana",
+	fontValueStyle: 'italic',
+	fontNumbersSize: 18,
+	fontNumbersStyle: 'italic',
+	fontNumbersWeight: 'bold',
+	fontTitleSize: 75,
+	fontUnitsSize: 50,
+	fontValueSize: 70,
+	animatedValue: true
+});
+
+var gaugeQuality = new RadialGauge({
+	renderTo: 'gauge-quality',
+	title: "Quality",
+	width: 230,
+	height: 230,
+	minValue: 0,
+	maxValue: 100,
+	exactTicks: true,
+	majorTicks: [0, 50, 70, 100],
+	minorTicks: 5,
+	ticksAngle: 250,
+	startAngle: 55,
+	strokeTicks: true,
+	highlights  : [
+		{ from : 0,  to : 50, color : 'rgba(225, 7, 23, 0.75)' },
+		{ from : 50,  to : 70, color : 'rgba(225, 165, 0, 0.75)' },
+		{ from : 70, to : 100, color : 'rgba(11, 152, 11, 0.85)' }
+	],
+	highlightsWidth: 15,
+	valueInt: 1,
+	valueDec: 0,
+	colorPlate: "#fff",
+	colorMajorTicks: "#222222",
+	colorMinorTicks: "#222222",
+	colorTitle: "#000",
+	colorUnits: "#000",
+	colorNumbers: "#333333",
+	valueBox: true,
+	colorValueText: "#000",
+	valueBoxStroke: 0,
+	colorValueBoxBackground: "#fff",
+	colorValueBoxShadow: false,
+	colorValueTextShadow: false,
+	colorNeedleShadowUp: false,
+	colorNeedleShadowDown: false,
+	colorNeedle: "rgba(200, 50, 50, .75)",
+	colorNeedleEnd: "rgba(200, 50, 50, .75)",
+	borderShadowWidth: 1,
+	borders: false,
+	needleWidth: 8,
+	needleCircleOuter: false,
+	needleCircleInner: false,
+	animationDuration: 1000,
+	animationRule: "elastic",
+	fontNumbers: "Verdana",
+	fontTitle: "Verdana",
+	fontValue: "Verdana",
+	fontValueStyle: 'italic',
+	fontNumbersSize: 18,
+	fontNumbersStyle: 'italic',
+	fontNumbersWeight: 'bold',
+	fontTitleSize: 55,
+	fontUnitsSize: 40,
+	fontValueSize: 60,
+	animatedValue: true
+});
+
+var gaugePerformance = new RadialGauge({
+	renderTo: 'gauge-performance',
+	title: "Performance",
+	width: 230,
+	height: 230,
+	minValue: 0,
+	maxValue: 100,
+	exactTicks: true,
+	majorTicks: [0, 50, 70, 100],
+	minorTicks: 5,
+	ticksAngle: 250,
+	startAngle: 55,
+	strokeTicks: true,
+	highlights  : [
+		{ from : 0,  to : 50, color : 'rgba(225, 7, 23, 0.75)' },
+		{ from : 50,  to : 70, color : 'rgba(225, 165, 0, 0.75)' },
+		{ from : 70, to : 100, color : 'rgba(11, 152, 11, 0.85)' }
+	],
+	highlightsWidth: 15,
+	valueInt: 1,
+	valueDec: 0,
+	colorPlate: "#fff",
+	colorMajorTicks: "#222222",
+	colorMinorTicks: "#222222",
+	colorTitle: "#000",
+	colorUnits: "#000",
+	colorNumbers: "#333333",
+	valueBox: true,
+	colorValueText: "#000",
+	valueBoxStroke: 0,
+	colorValueBoxBackground: "#fff",
+	colorValueBoxShadow: false,
+	colorValueTextShadow: false,
+	colorNeedleShadowUp: false,
+	colorNeedleShadowDown: false,
+	colorNeedle: "rgba(200, 50, 50, .75)",
+	colorNeedleEnd: "rgba(200, 50, 50, .75)",
+	borderShadowWidth: 1,
+	borders: false,
+	needleWidth: 8,
+	needleCircleOuter: false,
+	needleCircleInner: false,
+	animationDuration: 1000,
+	animationRule: "elastic",
+	fontNumbers: "Verdana",
+	fontTitle: "Verdana",
+	fontValue: "Verdana",
+	fontValueStyle: 'italic',
+	fontNumbersSize: 18,
+	fontNumbersStyle: 'italic',
+	fontNumbersWeight: 'bold',
+	fontTitleSize: 55,
+	fontUnitsSize: 40,
+	fontValueSize: 60,
+	animatedValue: true
+});
+
+var gaugeAvailability = new RadialGauge({
+	renderTo: 'gauge-availability',
+	title: "Availability",
+	width: 230,
+	height: 230,
+	minValue: 0,
+	maxValue: 100,
+	exactTicks: true,
+	majorTicks: [0, 50, 70, 100],
+	minorTicks: 5,
+	ticksAngle: 250,
+	startAngle: 55,
+	strokeTicks: true,
+	highlights  : [
+		{ from : 0,  to : 50, color : 'rgba(225, 7, 23, 0.75)' },
+		{ from : 50,  to : 70, color : 'rgba(225, 165, 0, 0.75)' },
+		{ from : 70, to : 100, color : 'rgba(11, 152, 11, 0.85)' }
+	],
+	highlightsWidth: 15,
+	valueInt: 1,
+	valueDec: 0,
+	colorPlate: "#fff",
+	colorMajorTicks: "#222222",
+	colorMinorTicks: "#222222",
+	colorTitle: "#000",
+	colorUnits: "#000",
+	colorNumbers: "#333333",
+	valueBox: true,
+	colorValueText: "#000",
+	valueBoxStroke: 0,
+	colorValueBoxBackground: "#fff",
+	colorValueTextShadow: false,
+	colorNeedleShadowUp: false,
+	colorNeedleShadowDown: false,
+	colorNeedle: "rgba(200, 50, 50, .75)",
+	colorNeedleEnd: "rgba(200, 50, 50, .75)",
+	borderShadowWidth: 1,
+	borders: false,
+	needleWidth: 8,
+	needleCircleOuter: false,
+	needleCircleInner: false,
+	animationDuration: 1000,
+	animationRule: "elastic",
+	fontNumbers: "Verdana",
+	fontTitle: "Verdana",
+	fontValue: "Verdana",
+	fontValueStyle: 'italic',
+	fontNumbersSize: 18,
+	fontNumbersStyle: 'italic',
+	fontNumbersWeight: 'bold',
+	fontTitleSize: 55,
+	fontUnitsSize: 40,
+	fontValueSize: 60,
+	animatedValue: true
+});
+
+
+//  Build Line Overview Boxes Context
+
+var canvas = document.getElementById("displayLinesOverview");
+var context = canvas.getContext("2d");
+
+var dispLine = 1;
+var dispPosistion = 0;
+
+	context.font = "70px Arial";
+
+while (dispLine < 9) {
+
+	if (data[dispLine][12] * 100 <49) {
+		var lineColour = lineRed;
+	} else if (data[dispLine][12] * 100 >48 && data[dispLine][12] * 100 <69) {
+		var lineColour = lineOrange;
+	} else { (data[dispLine][12] * 100 >68)
+		var lineColour = lineGreen;
+	}
+
+	context.fillStyle = lineColour;
+	context.fillRect(1,dispPosistion,330,80);
+	context.strokestyle = 'rgb(0,0,0)';
+	context.lineWidth = 2;
+	context.strokeRect(1,dispPosistion,330,80);
+	context.fillStyle = "black";
+	context.textAlign="left";
+	context.fillText(dispLine + " »",20,dispPosistion + 65);
+	context.textAlign="right";
+	context.fillText(Math.round(data[dispLine][12] * 100) + "%",300,dispPosistion + 65);
+
+	dispPosistion+=85;
+	dispLine++;
+}
+
+
+// Draw gauges
+	gaugeOEE.draw();
+	gaugeQuality.draw();
+	gaugePerformance.draw();
+	gaugeAvailability.draw();
+
+// Set AM/PM
+
+	document.getElementById("ampmUpdate").innerHTML = "&nbsp;" + data[lineNumber][0].slice(12, 14) + "</br>Shift";
+
+
+// Loop for updating Gauges 
+
+/*
+This was an escape from the setInterval loop
+
+var pageRefreshCounter = 3;
+var pageRefreshDoing = setInterval(function(){
+	pageRefreshCounter--
+	if (pageRefreshCounter === 0) {
+		clearInterval(pageRefreshDoing);
+	};
+*/
+
+setInterval(function loopKPI(){
+
+	if(lineNumber == 9) {
+		lineNumber = 1;
+	}
+
+
+// Update Gauges
+	gaugeOEE.value = data[lineNumber][12] * 100;
+	gaugeQuality.value = data[lineNumber][11] * 100;
+	gaugePerformance.value = data[lineNumber][10] * 100;
+	gaugeAvailability.value = data[lineNumber][9] * 100;
+// Update Line, Lost time, Rejects Texts
+	document.getElementById("lineNoDisplay").innerHTML = "LINE " + lineNumber;
+	document.getElementById("displayLostTime").innerHTML = "Lost Time: " + Math.round(data[lineNumber][8] * 100) + "%";
+
+//	document.getElementById("displayRejects").innerHTML = "Rejects: " + data[lineNumber][3];
+	document.getElementById("displayRejects").innerHTML = "Rejects: " + Math.round(data[lineNumber][3] * 100) + "%";
+
+
+//  Change Background Colour
+	if (data[lineNumber][12] * 100 <49) {
+		 document.body.style.background = lineRed;
+	} else if (data[lineNumber][12] * 100 >48 && data[lineNumber][12] * 100 <69) {
+		 document.body.style.background = lineOrange;
+	} else { (data[lineNumber][12] * 100 >68)
+		 document.body.style.background = lineGreen;
+	}
+
+
+	if (pageRefresher === 70) {
+// Reload the current page, without using the cache
+//	appCache.update();  // Attempt to update the user's cache.
+		window.location.reload(true);
+	}
+
+
+		pageRefresher ++;
+		lineNumber ++;
+
+// Runs loop without a pause first time round
+		return loopKPI;
+// Loop back here
+		}(), waitPeriod);
+
+
+
+// end of dostuff
+		console.log(data);
+}
+
+
+function parseData(url, callBack) {
+	Papa.parse(url, {
+		download: true,
+		dynamicTyping: true,
+		complete: function(results) {
+			callBack(results.data);
+		}
+	});
+}
+
+
+// Function to find latest file and open it
+// two commented lines work on a proper server - the min server for Chrome get no result
+// replaced with fetch command to get file generated by powershell
+/*
+var urld = 'lastDone.txt';
+
+fetch(urld).then(function(response) {
+  response.text().then(function(text) {
+    document.getElementById("lastMod").innerHTML = text;
+  });
+})
+*/
+function getHeaderTime () {
+	var shortLastMod = onReq.getResponseHeader("Last-Modified").slice(0, -7);
+	document.getElementById("lastMod").innerHTML = shortLastMod;
+}
+
+var onReq = new XMLHttpRequest();
+onReq.open("GET", "oee.csv");
+onReq.onload = getHeaderTime;   //rem this out on local
+onReq.send(null);
+
+
+
+
+// Start the engine!
+
+parseData("oee.csv", doStuff);
+
+</script>
+
+
+	</div>
+	</div>
+</div>
+<!-- ################################ -->
+<div class="wrapper row3">
+	<footer id="footer" class="clear">
+
+	</footer>
+</div>
+</body>
+</html>

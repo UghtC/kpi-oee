@@ -1,0 +1,168 @@
+
+
+	h1 {
+		font-size: 30px;
+	}
+	
+	html, body {
+		font-family: Arial, Helvetica, sans-serif;
+		text-shadow: 2px 2px 8px #FF0000;
+		background-color: #92ffaa;
+		height: 100%;
+		margin: 0px;
+	}
+	.lineclass {
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		padding:0;
+		margin:0;
+		visibility: visible;
+		width: 100%;
+		height: 100%;
+		background:rgb(39,232,51);			
+	}
+
+	.circleBase {
+		border-radius: 50%;
+		behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+	}
+	
+	.infocell {
+		width: 50px;
+		border-style: solid;
+		border-width: 1px;
+		border-color:  #000000;
+		font-size: 30px;
+		text-align: center;
+		padding-right: 10px;
+	}	
+
+	.infocell2 {
+		width: 250px;
+		border-style: solid;
+		border-width: 1px;
+		border-color:  #000000;
+		font-size: 30px;
+		text-align: center;
+		padding-right: 10px;
+	}
+	
+	.lineheader {
+		position: absolute;
+		left: 635px;
+		top: 20px;
+		font-size: 50px;
+	}
+	
+	.linepercentagesleft {
+		position: absolute;
+		left: 60px;
+		top: 10px;	
+	}	
+	
+	.linepercentagesright {
+		position: absolute;
+		left: 1100px;
+		top: 10px;	
+	}
+	
+	.piechart {
+		position:absolute;
+		left: 430px;
+		top: 200px;
+		display: inline;
+	}	
+	
+	
+	.padding {
+		padding-right: 30px;
+		padding-top: 5px;
+		width: 50px; 
+		font-size: 30px;
+		line-height: 20px;
+	}
+	
+	.circlestyle {
+		width: 140px;
+		height: 80px;
+		background: aqua;
+		border: 2px solid black;
+		-moz-box-shadow:    1px 2px 3px 3px #000;
+		-webkit-box-shadow: 1px 2px 3px 3px #000;
+	}
+	
+	.totaldiv {
+		position: absolute;
+		top: 510px;
+		left: 660px;
+		font-size: 50px;
+	}
+	
+	.stardiv1 {
+		position: absolute;
+		visibility: hidden;
+		top: 10px;
+		left: 570px;	
+	}
+	.stardiv2 {
+		position: absolute;
+		visibility: hidden;
+		top: 10px;
+		left: 830px;	
+	}
+	
+	#marker1 {
+		position: fixed;
+		top: 0px;
+		left: 1082px;
+		width: 20px;
+		height: 85px;
+		background-color: black;
+	}
+
+	#chart_div {
+		position: fixed;
+		top: 80px;
+		left: 480px;
+	}
+	
+	#div1_availabilty {
+		position: fixed;
+		top: 5px;
+		left: 100px;			
+	}		
+	#div1_performance {
+		position: fixed;
+		top: 235px;
+		left: 100px;			
+	}
+	#div1_quality {
+		position: fixed;
+		top: 465px;
+		left: 100px;			
+	}
+	#div1_losttime {
+		border-style: solid;
+		border-width: 5px;
+		width: 250px;
+		font-size: 30px;
+		position: fixed;
+		top: 505px;
+		left: 537px;
+		color: black;
+		background-color: #FFFFFF;
+	}	
+	#div1_rejects{
+		border-style: solid;
+		border-width: 5px;
+		width: 250px;
+		font-size: 30px;
+		position: fixed;
+		top: 560px;
+		left: 537px;
+		color: black;
+		background-color: #FFFFFF;
+	}
+
+	
