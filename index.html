@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 
-	<title>KPI Gauges</title>
+<title>KPI Gauges</title>
 <meta charset="iso-8859-1">
 
 <link rel="stylesheet" href="styles/layout.css" type="text/css">
@@ -101,7 +101,7 @@ var gaugeOEE = new RadialGauge({
 	needleCircleOuter: false,
 	needleCircleInner: false,
 	animationDuration: 1000,
-	animationRule: "elastic",
+	animationRule: "dequint",
 	fontNumbers: "Verdana",
 	fontTitle: "Verdana",
 	fontValue: "Verdana",
@@ -113,7 +113,8 @@ var gaugeOEE = new RadialGauge({
 	fontTitleSize: 75,
 	fontUnitsSize: 50,
 	fontValueSize: 70,
-	animatedValue: true
+	animatedValue: true,
+	units: "%"
 });
 
 var gaugeQuality = new RadialGauge({
@@ -159,7 +160,7 @@ var gaugeQuality = new RadialGauge({
 	needleCircleOuter: false,
 	needleCircleInner: false,
 	animationDuration: 1000,
-	animationRule: "elastic",
+	animationRule: "dequint",
 	fontNumbers: "Verdana",
 	fontTitle: "Verdana",
 	fontValue: "Verdana",
@@ -170,7 +171,8 @@ var gaugeQuality = new RadialGauge({
 	fontTitleSize: 55,
 	fontUnitsSize: 40,
 	fontValueSize: 60,
-	animatedValue: true
+	animatedValue: true,
+	units: "%"
 });
 
 var gaugePerformance = new RadialGauge({
@@ -216,7 +218,7 @@ var gaugePerformance = new RadialGauge({
 	needleCircleOuter: false,
 	needleCircleInner: false,
 	animationDuration: 1000,
-	animationRule: "elastic",
+	animationRule: "dequint",
 	fontNumbers: "Verdana",
 	fontTitle: "Verdana",
 	fontValue: "Verdana",
@@ -227,7 +229,8 @@ var gaugePerformance = new RadialGauge({
 	fontTitleSize: 55,
 	fontUnitsSize: 40,
 	fontValueSize: 60,
-	animatedValue: true
+	animatedValue: true,
+	units: "%"
 });
 
 var gaugeAvailability = new RadialGauge({
@@ -261,6 +264,7 @@ var gaugeAvailability = new RadialGauge({
 	colorValueText: "#000",
 	valueBoxStroke: 0,
 	colorValueBoxBackground: "#fff",
+	colorValueBoxShadow: false,
 	colorValueTextShadow: false,
 	colorNeedleShadowUp: false,
 	colorNeedleShadowDown: false,
@@ -272,7 +276,7 @@ var gaugeAvailability = new RadialGauge({
 	needleCircleOuter: false,
 	needleCircleInner: false,
 	animationDuration: 1000,
-	animationRule: "elastic",
+	animationRule: "dequint",
 	fontNumbers: "Verdana",
 	fontTitle: "Verdana",
 	fontValue: "Verdana",
@@ -283,7 +287,8 @@ var gaugeAvailability = new RadialGauge({
 	fontTitleSize: 55,
 	fontUnitsSize: 40,
 	fontValueSize: 60,
-	animatedValue: true
+	animatedValue: true,
+	units: "%"
 });
 
 
@@ -379,6 +384,7 @@ setInterval(function loopKPI(){
 
 	if (pageRefresher === 70) {
 // Reload the current page, without using the cache
+//  Gave up on this and used a Chrome extension to not hold the cache.
 //	appCache.update();  // Attempt to update the user's cache.
 		window.location.reload(true);
 	}
